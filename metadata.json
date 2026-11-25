@@ -1,0 +1,6 @@
+{
+  "name": "Hema Nexus",
+  "description": "Your Health. Connected. Integrated multi-parameter blood testing and physiological monitoring companion for the Hema Nexus medical device.",
+  "requestFramePermissions": ["bluetooth"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

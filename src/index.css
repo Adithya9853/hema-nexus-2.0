@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Public Sans", "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-clinical-navy: #0b2239;
+  --color-clinical-blue: #005eb8;
+  --color-clinical-teal: #0f766e;
+  --color-clinical-ice: #f3f6fa;
+  --color-clinical-border: #d5e0ec;
+  --color-icu-bg: #0b121b;
+  --color-icu-surface: #111b27;
+  --color-icu-border: #1e2e42;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #f3f6fa;
+    color: #0f172a;
+    color-scheme: light;
+  }
+
+  html.dark {
+    background-color: #0b121b;
+    color: #e8eef5;
+    color-scheme: dark;
+  }
+
+  button,
+  a,
+  select,
+  input,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+}
+
+.tabular-nums-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Primary Medical Action Button */
+.hn-btn-primary {
+  background-color: #005eb8;
+  color: #ffffff;
+}
+.hn-btn-primary:hover:not(:disabled) {
+  background-color: #004a94;
+}
+.dark .hn-btn-primary {
+  background-color: #0284c7;
+  color: #ffffff;
+}
+.dark .hn-btn-primary:hover:not(:disabled) {
+  background-color: #0369a1;
+}
+
+/* Clinical Monitor / Instrument Panel Surface */
+.hn-clinical-panel {
+  background-color: #0b2239;
+  border: 1px solid #173657;
+  color: #f1f5f9;
+}
+
+@keyframes hn-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.hn-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.04) 25%,
+    rgba(0, 94, 184, 0.08) 50%,
+    rgba(15, 23, 42, 0.04) 75%
+  );
+  background-size: 200% 100%;
+  animation: hn-shimmer 1.5s infinite linear;
+}
+
+.dark .hn-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(56, 189, 248, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
