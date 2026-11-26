@@ -11,7 +11,11 @@ import {
   signOut,
   type User,
 } from 'firebase/auth';
-import { auth, googleAuthProvider } from '../lib/firebase.ts';
+import {
+  activeFirebaseProjectId,
+  auth,
+  googleAuthProvider,
+} from '../lib/firebase.ts';
 import { apiRequest, registerTokenGetter } from '../services/api/client.ts';
 import { clearQueueForUser } from '../services/sync/offlineQueue.ts';
 import type { UserPreferences, UserProfile, UserRole } from '../types/hema.ts';
@@ -168,6 +172,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else if (code === 'auth/popup-blocked') {
         setAuthError(
           'Browser blocked the sign-in popup. Allow popups for this site and retry.',
+        );
+      } else if (code === 'auth/unauthorized-domain') {
+        const currentHost =
+          typeof window !== 'undefined' ? window.location.hostname : 'this domain';
+        setAuthError(
+          `Domain "${currentHost}" is not authorized in Firebase project "${activeFirebaseProjectId}". Authorize "${currentHost}" under Authentication → Settings → Authorized domains in project "${activeFirebaseProjectId}", or configure VITE_FIREBASE_* environment variables for your target Firebase project and redeploy.`,
         );
       } else {
         setAuthError(
